@@ -365,3 +365,13 @@ thead th {
     color: #555;
     font-size: 0.9rem;
 }
+
+/* Account Page Styles */
+.active-link {
+    color: var(--primary-green) !important;
+    font-weight: 600;
+}
+
+.account-sidebar a:hover {
+    color: var(--primary-green) !important;
+}

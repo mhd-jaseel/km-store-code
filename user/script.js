@@ -416,4 +416,21 @@ document.addEventListener('DOMContentLoaded', function () {
             cartTotalEl.textContent = '₹' + (totalSubtotal + shippingCost);
         }
     }
+
+    // --- Hot Deals Slider Logic ---
+    const hotDealsTrack = document.getElementById('hot-deals-track');
+    const prevBtn = document.getElementById('hot-deals-prev');
+    const nextBtn = document.getElementById('hot-deals-next');
+
+    if (hotDealsTrack && prevBtn && nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const scrollAmount = hotDealsTrack.clientWidth / 2; // Scroll half container width
+            hotDealsTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            const scrollAmount = hotDealsTrack.clientWidth / 2;
+            hotDealsTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+    }
 });

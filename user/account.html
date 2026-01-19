@@ -14,6 +14,8 @@
         rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -95,18 +97,26 @@
                 <div class="account-sidebar">
                     <h6 class="fw-bold mb-3">Manage My Account</h6>
                     <ul class="list-unstyled ms-3">
-                        <li class="mb-2"><a href="#" class="text-decoration-none active-link">My Profile</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Address Book</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">My Payment Options</a></li>
+                        <li class="mb-2"><a href="account.html" class="text-decoration-none active-link">My Profile</a>
+                        </li>
+                        <li class="mb-2"><a href="address-book.html" class="text-decoration-none text-muted">Address
+                                Book</a></li>
+                        <li class="mb-2"><a href="payment-options.html" class="text-decoration-none text-muted">My
+                                Payment Options</a></li>
                     </ul>
 
                     <h6 class="fw-bold mb-3 mt-4">Orders</h6>
                     <ul class="list-unstyled ms-3">
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">My Returns</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-muted">My Cancellations</a></li>
+                        <li class="mb-2"><a href="my-orders.html" class="text-decoration-none text-muted">My Orders</a>
+                        </li>
+                        <li class="mb-2"><a href="my-returns.html" class="text-decoration-none text-muted">My
+                                Returns</a></li>
+                        <li class="mb-2"><a href="my-cancellations.html" class="text-decoration-none text-muted">My
+                                Cancellations</a></li>
                     </ul>
 
-                    <h6 class="fw-bold mb-3 mt-4">My WishList</h6>
+                    <h6 class="fw-bold mb-3 mt-4"><a href="wishlist.html" class="text-decoration-none text-dark">My
+                            WishList</a></h6>
                 </div>
             </div>
 
@@ -114,7 +124,7 @@
             <div class="col-md-9">
                 <div class="card border-0 shadow-sm p-4">
                     <h5 class="fw-bold text-primary-custom mb-4">Edit Your Profile</h5>
-                    <form>
+                    <form id="profile-form">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label small text-muted">First Name</label>
