@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KM Store - Tomato</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header class="bg-primary-custom text-white">
+        <div class="container py-2">
+            <div class="row align-items-center">
+                <!-- Logo -->
+                <div class="col-md-3">
+                    <a href="homepage.html" class="navbar-brand fw-bold fs-3 text-white">
+                        <i class="fas fa-leaf me-2"></i>KM Store
+                    </a>
+                </div>
+                <!-- Search Bar -->
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0" placeholder="Search for products...">
+                        <button class="btn btn-light text-primary-custom" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- User Actions -->
+                <div class="col-md-4 text-end">
+                    <a href="#" class="text-white text-decoration-none me-3"><i class="fas fa-map-marker-alt me-1"></i>
+                        Location</a>
+                    <a href="cart.html" class="text-white text-decoration-none me-3"><i
+                            class="fas fa-shopping-cart me-1"></i>
+                        Cart</a>
+                    <a href="#" class="text-white text-decoration-none"><i class="fas fa-user me-1"></i> Login</a>
+                </div>
+            </div>
+            <!-- Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-dark p-0 mt-2">
+                <div class="container-fluid p-0">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="product.html">Products</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Curve SVG at the bottom -->
+        <div class="header-curve">
+            <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#ffffff"
+                    d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+    </header>
+
+
+
+    <!-- Product Details Section -->
+    <section class="container mb-5">
+        <div class="row bg-white rounded-4 p-4 p-md-5 shadow-sm">
+            <!-- Product Images -->
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="text-center mb-4">
+                    <img src="https://placehold.co/400x400/png?text=Tomato" alt="Tomato Big"
+                        class="img-fluid rounded mb-3 main-product-img">
+                </div>
+                <div class="d-flex justify-content-center gap-3">
+                    <div class="thumbnail-img rounded p-1 border border-success cursor-pointer">
+                        <img src="https://placehold.co/80x80/png?text=Tomato+1" alt="Thumb 1" class="img-fluid">
+                    </div>
+                    <div class="thumbnail-img rounded p-1 border cursor-pointer">
+                        <img src="https://placehold.co/80x80/png?text=Tomato+2" alt="Thumb 2" class="img-fluid">
+                    </div>
+                    <div class="thumbnail-img rounded p-1 border cursor-pointer">
+                        <img src="https://placehold.co/80x80/png?text=Tomato+3" alt="Thumb 3" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="col-md-6">
+                <h2 class="fw-bold mb-2">Tomato</h2>
+                <div class="mb-3">
+                    <span class="text-muted border-end pe-2 me-2">1000g</span>
+                    <span class="text-success fw-bold">In Stock</span>
+                </div>
+                <h3 class="fw-bold mb-4">₹60.00</h3>
+
+                <div class="d-flex align-items-center mb-4 gap-3">
+                    <!-- Quantity Selector -->
+                    <div class="quantity-selector d-flex align-items-center border rounded">
+                        <button class="btn btn-light rounded-0 border-0 px-3 py-2">-</button>
+                        <input type="text" value="2" class="form-control text-center border-0 p-0" style="width: 50px;">
+                        <button class="btn btn-success text-white rounded-0 border-0 px-3 py-2">+</button>
+                    </div>
+
+                    <!-- Add to Cart (Expanded) -->
+                    <button class="btn btn-add-cart-lg flex-grow-1">Add to cart</button>
+                </div>
+
+                <hr class="my-4 text-muted">
+
+                <!-- Value Props -->
+                <div class="d-flex gap-3 mb-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <i class="fas fa-truck-fast text-primary-custom fs-4 mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Free delivery</h6>
+                            <p class="text-muted small mb-0">Do purchase over ₹50 and get free delivery anywhere</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-3 mb-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <i class="fas fa-tags text-primary-custom fs-4 mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Best Prices & Deals</h6>
+                            <p class="text-muted small mb-0">Don't miss our daily amazing deals and prices</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-3 mb-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <i class="fas fa-rotate-left text-primary-custom fs-4 mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Refundable</h6>
+                            <p class="text-muted small mb-0">If your items have damage we agree to refund it</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Product Description -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="fw-bold mb-3">PRODUCT DETAILS</h5>
+                <h6 class="fw-bold">Helth benifit</h6>
+                <p class="text-muted small" id="product-desc-text">
+                    Contains Folic acid, Vitamin C and Amino acid .Vitamin C acts as a powerful antioxidant and also
+                    helps formation of collagen that is responsible for skin and hair health., Vitamin A, C & K Rich
+                    <span id="more-text" style="display: none;">
+                        <br><br>
+                        Beyond these key nutrients, tomatoes are also an excellent source of potassium, which is
+                        beneficial for blood pressure control and cardiovascular health. The high water content in
+                        tomatoes helps keep you hydrated and supports healthy digestion. Including tomatoes in your
+                        daily diet can also contribute to better vision and protect your eyes from light-induced damage.
+                        They fit perfectly into salads, soups, sauces, and sandwiches.
+                    </span>
+                </p>
+                <div class="text-center">
+                    <button class="btn btn-link text-primary-custom text-decoration-none small" id="view-more-btn"
+                        onclick="toggleText()">view more</button>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Cart Button -->
+    <a href="cart.html" class="btn-floating-cart">
+        <i class="fas fa-shopping-cart"></i> Cart
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
