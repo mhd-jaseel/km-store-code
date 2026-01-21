@@ -14,6 +14,10 @@
         rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -39,6 +43,9 @@
         </a>
         <a href="banner.html" class="nav-link">
             <i class="fas fa-image"></i> Banner
+        </a>
+        <a href="sales-offers.html" class="nav-link">
+            <i class="fas fa-percentage"></i> Sales Offers
         </a>
         <a href="transaction.html" class="nav-link">
             <i class="fas fa-wallet"></i> Transaction
@@ -175,6 +182,43 @@
                 sidebar.classList.toggle('show');
             });
         }
+
+        // Global Delete Confirmation
+        document.body.addEventListener('click', function (e) {
+            // Target buttons with text-danger (usually delete/trash)
+            const deleteBtn = e.target.closest('.btn.text-danger') || e.target.closest('.btn-outline-danger');
+            if (deleteBtn) {
+                // Determine if it's strictly a delete action (look for trash icon or delete text)
+                // But user asked for "every delete button", so broad is okay, or restrict to trash.
+                // Let's stick to .text-danger with trash icon or explicit delete class if we had one.
+                // For now, checks if it has fa-trash or is btn-outline-danger (like in banner)?
+                // Actually sticking to the previous pattern: .btn.text-danger (which has trash icon in other files)
+                if (deleteBtn.querySelector('.fa-trash') || deleteBtn.textContent.toLowerCase().includes('delete') || deleteBtn.classList.contains('text-danger')) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Deleted!',
+                                'The item has been deleted.',
+                                'success'
+                            ).then(() => {
+                                // Optional: Remove row from DOM
+                                const row = deleteBtn.closest('tr');
+                                if (row) row.remove();
+                            });
+                        }
+                    });
+                }
+            }
+        });
     </script>
 </body>
 

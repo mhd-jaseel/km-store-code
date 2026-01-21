@@ -12,6 +12,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -39,11 +41,15 @@
                 </div>
                 <!-- User Actions -->
                 <div class="col-md-4 text-end">
-                    <a href="#" class="text-white text-decoration-none me-3"><i class="fas fa-map-marker-alt me-1"></i>
-                        Location</a>
+                    <a href="wishlist.html" class="text-white text-decoration-none me-3"><i
+                            class="fas fa-heart me-1"></i>
+                        Wishlist</a>
                     <a href="cart.html" class="text-white text-decoration-none me-3"><i
                             class="fas fa-shopping-cart me-1"></i>
                         Cart</a>
+                    <a href="login.html" class="text-white text-decoration-none me-3" id="headerLoginBtn"><i
+                            class="fas fa-sign-in-alt me-1"></i>
+                        Login</a>
                     <a href="account.html" class="text-white text-decoration-none"><i class="fas fa-user me-1"></i>
                         Account</a>
                 </div>
@@ -60,7 +66,8 @@
                             <li class="nav-item"><a class="nav-link" href="#">About</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
+
+                            <li class="nav-item"><a class="nav-link" href="signup.html">Signup</a></li>
                         </ul>
                     </div>
                 </div>
@@ -138,26 +145,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                            <tbody>
+                                <tr data-order-id="#987654" data-date="Apr 14, 2024" data-status="Delivered"
+                                    data-total="₹1,200"
+                                    data-items='[{"name":"Tomato (Thakkali)", "qty": "2kg", "price": "₹60"}, {"name":"Sunflower Oil", "qty": "1L", "price": "150"}, {"name":"Basmati Rice", "qty": "5kg", "price": "₹450"}]'>
                                     <td>#987654</td>
                                     <td>Apr 14, 2024</td>
                                     <td><span class="badge bg-success">Delivered</span></td>
                                     <td>₹1,200</td>
-                                    <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                                    <td><button class="btn btn-sm btn-outline-primary view-order-btn">View
+                                            Details</button></td>
                                 </tr>
-                                <tr>
+                                <tr data-order-id="#987653" data-date="Apr 10, 2024" data-status="Processing"
+                                    data-total="₹850"
+                                    data-items='[{"name":"Apple", "qty": "2kg", "price": "₹300"}, {"name":"Banana", "qty": "1 Dozen", "price": "₹60"}]'>
                                     <td>#987653</td>
                                     <td>Apr 10, 2024</td>
                                     <td><span class="badge bg-warning text-dark">Processing</span></td>
                                     <td>₹850</td>
-                                    <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary view-order-btn">View
+                                            Details</button>
+                                        <button
+                                            class="btn btn-sm btn-outline-danger btn-cancel-order ms-1">Cancel</button>
+                                    </td>
                                 </tr>
-                                <tr>
+                                <tr data-order-id="#987652" data-date="Mar 28, 2024" data-status="Delivered"
+                                    data-total="₹2,300"
+                                    data-items='[{"name":"Chicken Breast", "qty": "1kg", "price": "₹500"}, {"name":"Dairy Milk Silk", "qty": "5", "price": "₹350"}]'>
                                     <td>#987652</td>
                                     <td>Mar 28, 2024</td>
                                     <td><span class="badge bg-success">Delivered</span></td>
                                     <td>₹2,300</td>
-                                    <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                                    <td><button class="btn btn-sm btn-outline-primary view-order-btn">View
+                                            Details</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -167,9 +188,84 @@
         </div>
     </section>
 
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary-custom text-white">
+                    <h5 class="modal-title fw-bold" id="orderDetailsModalLabel">Order Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-muted small">ORDER ID</h6>
+                            <p class="fw-bold" id="modalOrderId">#123456</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <h6 class="fw-bold text-muted small">DATE</h6>
+                            <p class="fw-bold" id="modalOrderDate">Jan 01, 2024</p>
+                        </div>
+                    </div>
+
+                    <h6 class="fw-bold border-bottom pb-2 mb-3">Items</h6>
+                    <ul class="list-group list-group-flush mb-4" id="modalOrderItems">
+                        <!-- Dynamic Items -->
+                    </ul>
+
+                    <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                        <h5 class="fw-bold">Total</h5>
+                        <h5 class="fw-bold text-primary-custom" id="modalOrderTotal">₹0</h5>
+                    </div>
+
+                    <div class="mt-4 text-end" id="modalInvoiceAction">
+                        <button class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-success" id="btnDownloadInvoice"><i
+                                class="fas fa-file-invoice me-2"></i>Download Invoice</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-light pt-5 pb-3 border-top mt-5">
+    <footer class="bg-light pt-5 pb-3">
         <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold text-primary-custom mb-3">KM Store</h5>
+                    <p class="small text-muted">Best products at your doorstep. Fresh and organic directly from farmers
+                        to your kitchen.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-secondary"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-secondary"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="fw-bold">Account</h6>
+                    <ul class="list-unstyled small text-muted">
+                        <li><a href="#" class="text-decoration-none text-muted">Profile</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">Orders</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">Addresses</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="fw-bold">Useful Links</h6>
+                    <ul class="list-unstyled small text-muted">
+                        <li><a href="about.html" class="text-decoration-none text-muted">About Us</a></li>
+                        <li><a href="contact.html" class="text-decoration-none text-muted">Contact</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h6 class="fw-bold">Help Center</h6>
+                    <p class="small text-muted">Email: support@kmstore.com<br>Phone: +1 234 567 890</p>
+                </div>
+            </div>
+            <hr>
             <div class="text-center small text-muted">
                 &copy; 2024 KM Store. All rights reserved.
             </div>

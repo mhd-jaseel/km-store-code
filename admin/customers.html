@@ -14,6 +14,10 @@
         rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -39,6 +43,9 @@
         </a>
         <a href="banner.html" class="nav-link">
             <i class="fas fa-image"></i> Banner
+        </a>
+        <a href="sales-offers.html" class="nav-link">
+            <i class="fas fa-percentage"></i> Sales Offers
         </a>
         <a href="transaction.html" class="nav-link">
             <i class="fas fa-wallet"></i> Transaction
@@ -125,11 +132,11 @@
                                 <td>New York</td>
                                 <td>15</td>
                                 <td>
-                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"><i
-                                            class="fas fa-eye"></i></a>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
                                     <button class="btn btn-sm btn-light text-warning" title="Block"><i
                                             class="fas fa-ban"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger"><i
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -144,17 +151,184 @@
                                 <td>London</td>
                                 <td>3</td>
                                 <td>
-                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"><i
-                                            class="fas fa-eye"></i></a>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
                                     <button class="btn btn-sm btn-light text-warning" title="Block"><i
                                             class="fas fa-ban"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger"><i
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>103</td>
+                                <td><img src="https://ui-avatars.com/api/?name=Sarah+Smith&background=random"
+                                        class="rounded-circle" width="30" height="30"></td>
+                                <td><a href="customer-details.html" class="text-decoration-none text-dark fw-bold">Sarah
+                                        Smith</a></td>
+                                <td>sarah.smith@example.com</td>
+                                <td>+1 555 123 456</td>
+                                <td>California</td>
+                                <td>8</td>
+                                <td>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
+                                    <button class="btn btn-sm btn-light text-warning" title="Block"><i
+                                            class="fas fa-ban"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>104</td>
+                                <td><img src="https://ui-avatars.com/api/?name=Emily+Davis&background=random"
+                                        class="rounded-circle" width="30" height="30"></td>
+                                <td><a href="customer-details.html" class="text-decoration-none text-dark fw-bold">Emily
+                                        Davis</a></td>
+                                <td>emily.davis@example.com</td>
+                                <td>+1 555 987 654</td>
+                                <td>Toronto</td>
+                                <td>12</td>
+                                <td>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
+                                    <button class="btn btn-sm btn-light text-warning" title="Block"><i
+                                            class="fas fa-ban"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>105</td>
+                                <td><img src="https://ui-avatars.com/api/?name=Michael+Brown&background=random"
+                                        class="rounded-circle" width="30" height="30"></td>
+                                <td><a href="customer-details.html"
+                                        class="text-decoration-none text-dark fw-bold">Michael
+                                        Brown</a></td>
+                                <td>michael.b@example.com</td>
+                                <td>+49 123 456 789</td>
+                                <td>Berlin</td>
+                                <td>5</td>
+                                <td>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
+                                    <button class="btn btn-sm btn-light text-warning" title="Block"><i
+                                            class="fas fa-ban"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>106</td>
+                                <td><img src="https://ui-avatars.com/api/?name=Jessica+Wilson&background=random"
+                                        class="rounded-circle" width="30" height="30"></td>
+                                <td><a href="customer-details.html"
+                                        class="text-decoration-none text-dark fw-bold">Jessica
+                                        Wilson</a></td>
+                                <td>jessica.w@example.com</td>
+                                <td>+33 1 23 45 67 89</td>
+                                <td>Paris</td>
+                                <td>20</td>
+                                <td>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
+                                    <button class="btn btn-sm btn-light text-warning" title="Block"><i
+                                            class="fas fa-ban"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>107</td>
+                                <td><img src="https://ui-avatars.com/api/?name=David+Martinez&background=random"
+                                        class="rounded-circle" width="30" height="30"></td>
+                                <td><a href="customer-details.html" class="text-decoration-none text-dark fw-bold">David
+                                        Martinez</a></td>
+                                <td>david.m@example.com</td>
+                                <td>+34 91 123 45 67</td>
+                                <td>Madrid</td>
+                                <td>7</td>
+                                <td>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
+                                    <button class="btn btn-sm btn-light text-warning" title="Block"><i
+                                            class="fas fa-ban"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>108</td>
+                                <td><img src="https://ui-avatars.com/api/?name=Sophia+Taylor&background=random"
+                                        class="rounded-circle" width="30" height="30"></td>
+                                <td><a href="customer-details.html"
+                                        class="text-decoration-none text-dark fw-bold">Sophia
+                                        Taylor</a></td>
+                                <td>sophia.t@example.com</td>
+                                <td>+39 06 1234 5678</td>
+                                <td>Rome</td>
+                                <td>2</td>
+                                <td>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
+                                    <button class="btn btn-sm btn-light text-warning" title="Block"><i
+                                            class="fas fa-ban"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>109</td>
+                                <td><img src="https://ui-avatars.com/api/?name=James+Anderson&background=random"
+                                        class="rounded-circle" width="30" height="30"></td>
+                                <td><a href="customer-details.html" class="text-decoration-none text-dark fw-bold">James
+                                        Anderson</a></td>
+                                <td>james.a@example.com</td>
+                                <td>+61 2 1234 5678</td>
+                                <td>Sydney</td>
+                                <td>9</td>
+                                <td>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
+                                    <button class="btn btn-sm btn-light text-warning" title="Block"><i
+                                            class="fas fa-ban"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>110</td>
+                                <td><img src="https://ui-avatars.com/api/?name=Olivia+Thomas&background=random"
+                                        class="rounded-circle" width="30" height="30"></td>
+                                <td><a href="customer-details.html"
+                                        class="text-decoration-none text-dark fw-bold">Olivia
+                                        Thomas</a></td>
+                                <td>olivia.t@example.com</td>
+                                <td>+81 3 1234 5678</td>
+                                <td>Tokyo</td>
+                                <td>18</td>
+                                <td>
+                                    <a href="customer-details.html" class="btn btn-sm btn-light text-primary"
+                                        title="View"><i class="fas fa-eye"></i></a>
+                                    <button class="btn btn-sm btn-light text-warning" title="Block"><i
+                                            class="fas fa-ban"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-4 px-3 pb-3">
+                    <ul class="pagination justification-content-end mb-0">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -168,6 +342,35 @@
                 sidebar.classList.toggle('show');
             });
         }
+
+        // Global Delete Confirmation
+        document.body.addEventListener('click', function (e) {
+            const deleteBtn = e.target.closest('.btn.text-danger');
+            if (deleteBtn) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            'Deleted!',
+                            'The item has been deleted.',
+                            'success'
+                        ).then(() => {
+                            // Optional: Remove row from DOM
+                            const row = deleteBtn.closest('tr');
+                            if (row) row.remove();
+                        });
+                    }
+                });
+            }
+        });
     </script>
 </body>
 

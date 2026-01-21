@@ -12,6 +12,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -39,11 +41,16 @@
                 </div>
                 <!-- User Actions -->
                 <div class="col-md-4 text-end">
-                    <a href="#" class="text-white text-decoration-none me-3"><i class="fas fa-map-marker-alt me-1"></i>
-                        Location</a>
+                    <a href="wishlist.html" class="text-white text-decoration-none me-3"><i
+                            class="fas fa-heart me-1"></i>
+                        Wishlist</a>
                     <a href="#" class="text-white text-decoration-none me-3"><i class="fas fa-shopping-cart me-1"></i>
                         Cart</a>
-                    <a href="#" class="text-white text-decoration-none"><i class="fas fa-user me-1"></i> Login</a>
+                    <a href="login.html" class="text-white text-decoration-none me-3" id="headerLoginBtn"><i
+                            class="fas fa-sign-in-alt me-1"></i>
+                        Login</a>
+                    <a href="account.html" class="text-white text-decoration-none"><i class="fas fa-user me-1"></i>
+                        Account</a>
                 </div>
             </div>
             <!-- Navigation -->
@@ -58,7 +65,8 @@
                             <li class="nav-item"><a class="nav-link" href="#">About</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
+
+                            <li class="nav-item"><a class="nav-link" href="signup.html">Signup</a></li>
                         </ul>
                     </div>
                 </div>
@@ -87,6 +95,12 @@
         <div class="row">
             <!-- Cart Items -->
             <div class="col-lg-8 mb-4">
+                <!-- Clear Cart Button -->
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-outline-danger btn-sm" id="btn-clear-cart">
+                        <i class="fas fa-trash me-2"></i>Clear Cart
+                    </button>
+                </div>
                 <div class="table-responsive">
                     <table class="table align-middle">
                         <thead class="bg-light">
@@ -154,22 +168,53 @@
                 </div>
             </div>
 
+
             <!-- Cart Totals -->
             <div class="col-lg-4">
                 <div class="card border rounded-3 p-4">
-                    <h5 class="fw-bold mb-4">Cart Total</h5>
+                    <h5 class="fw-bold mb-4">Bill details</h5>
 
-                    <div class="d-flex justify-content-between mb-3">
-                        <span class="text-dark fw-medium">Subtotal</span>
-                        <span class="fw-bold" id="cart-subtotal">₹40</span>
+                    <!-- Items Total -->
+                    <div class="d-flex justify-content-between mb-2">
+                        <div>
+                            <i class="fas fa-file-invoice me-2 text-dark"></i>
+                            <span class="text-dark">Items total</span>
+                            <span class="badge bg-primary-subtle text-primary ms-2 p-1" style="font-size: 0.75rem;"
+                                id="bill-savings-badge">Saved ₹0</span>
+                        </div>
+                        <div>
+                            <span class="text-muted text-decoration-line-through me-1 small"
+                                id="bill-items-total-strike"></span>
+                            <span class="fw-bold" id="bill-items-total">₹0</span>
+                        </div>
                     </div>
+
+                    <!-- Delivery Charge -->
+                    <div class="d-flex justify-content-between mb-2">
+                        <div>
+                            <i class="fas fa-motorcycle me-2 text-dark"></i>
+                            <span class="text-dark">Delivery charge</span>
+                            <i class="far fa-question-circle text-muted ms-1 small" data-bs-toggle="tooltip"
+                                title="Standard delivery charge"></i>
+                        </div>
+                        <span class="fw-bold fs-6">₹25</span>
+                    </div>
+
+                    <!-- Handling Charge -->
                     <div class="d-flex justify-content-between mb-3 border-bottom pb-3">
-                        <span class="text-dark fw-medium">Shipping:</span>
-                        <span class="fw-bold">₹20</span>
+                        <div>
+                            <i class="fas fa-shopping-bag me-2 text-dark"></i>
+                            <span class="text-dark">Handling charge</span>
+                            <i class="far fa-question-circle text-muted ms-1 small" data-bs-toggle="tooltip"
+                                title="Platform handling fee"></i>
+                        </div>
+                        <span class="fw-bold fs-6">₹2</span>
                     </div>
+
+                    <!-- Grand Total -->
                     <div class="d-flex justify-content-between mb-4">
-                        <span class="text-dark fw-bold">Total:</span>
-                        <span class="fw-bold text-dark fs-5" id="cart-total">₹60</span>
+                        <span class="text-dark fw-bold fs-5">Grand total</span>
+                        <span class="fw-bold text-dark fs-5" id="cart-total">₹0</span>
                     </div>
 
                     <a href="checkout.html" class="btn btn-primary-custom w-100 py-2 fw-semibold">Proceed to
@@ -180,7 +225,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-light pt-5 pb-3 border-top mt-5">
+    <footer class="bg-light pt-5 pb-3">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
@@ -204,8 +249,8 @@
                 <div class="col-md-2 mb-4">
                     <h6 class="fw-bold">Useful Links</h6>
                     <ul class="list-unstyled small text-muted">
-                        <li><a href="#" class="text-decoration-none text-muted">About Us</a></li>
-                        <li><a href="#" class="text-decoration-none text-muted">Contact</a></li>
+                        <li><a href="about.html" class="text-decoration-none text-muted">About Us</a></li>
+                        <li><a href="contact.html" class="text-decoration-none text-muted">Contact</a></li>
                         <li><a href="#" class="text-decoration-none text-muted">FAQ</a></li>
                     </ul>
                 </div>

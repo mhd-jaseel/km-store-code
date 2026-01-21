@@ -23,6 +23,10 @@
             transform: translateY(-5px);
         }
     </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -48,6 +52,9 @@
         </a>
         <a href="banner.html" class="nav-link">
             <i class="fas fa-image"></i> Banner
+        </a>
+        <a href="sales-offers.html" class="nav-link">
+            <i class="fas fa-percentage"></i> Sales Offers
         </a>
         <a href="transaction.html" class="nav-link">
             <i class="fas fa-wallet"></i> Transaction
@@ -170,6 +177,36 @@
                 sidebar.classList.toggle('show');
             });
         }
+
+        // Global Delete Confirmation
+        document.body.addEventListener('click', function (e) {
+            const deleteBtn = e.target.closest('.btn.text-danger');
+            if (deleteBtn) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            'Deleted!',
+                            'The item has been deleted.',
+                            'success'
+                        ).then(() => {
+                            // Optional: Remove row from DOM
+                            // For brand cards, the button is inside .brand-card -> .col
+                            const cardCol = deleteBtn.closest('.col-md-4');
+                            if (cardCol) cardCol.remove();
+                        });
+                    }
+                });
+            }
+        });
     </script>
 </body>
 

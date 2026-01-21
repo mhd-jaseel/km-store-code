@@ -12,6 +12,61 @@ function toggleText() {
     }
 }
 
+// Check Login Status and Update Navbar
+document.addEventListener('DOMContentLoaded', function () {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const signupLink = document.querySelector('a[href="signup.html"]');
+    const accountLink = document.querySelector('a[href="account.html"]');
+    const headerLoginBtn = document.getElementById('headerLoginBtn');
+
+    if (isLoggedIn) {
+        // User IS logged in
+        if (signupLink) {
+            signupLink.closest('li').style.display = 'none';
+        }
+
+        if (headerLoginBtn) {
+            headerLoginBtn.style.display = 'none';
+        }
+
+        if (accountLink) {
+            // Create Dropdown
+            const dropdownHTML = `
+                <div class="dropdown d-inline-block">
+                    <a href="#" class="text-white text-decoration-none dropdown-toggle" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user me-1"></i> Account
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                        <li><a class="dropdown-item" href="account.html">Account</a></li>
+                        <li><a class="dropdown-item" href="my-orders.html">My Orders</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+                    </ul>
+                </div>
+            `;
+            accountLink.outerHTML = dropdownHTML;
+
+            // Logout Functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem('isLoggedIn');
+                    window.location.href = 'homepage.html';
+                });
+            }
+        }
+    } else {
+        // User is NOT logged in
+        if (accountLink) {
+            accountLink.style.display = 'none';
+        }
+        if (headerLoginBtn) {
+            headerLoginBtn.style.display = 'inline';
+        }
+    }
+});
+
 // Cart Functionality
 document.addEventListener('DOMContentLoaded', function () {
     const cartTableBody = document.getElementById('cart-table-body');
@@ -99,10 +154,25 @@ document.addEventListener('DOMContentLoaded', function () {
     // Bulk Actions
     if (btnClearWishlist) {
         btnClearWishlist.addEventListener('click', function () {
-            if (confirm('Are you sure you want to clear your wishlist?')) {
-                localStorage.removeItem('kmStoreWishlist');
-                renderWishlist();
-            }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, clear it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('kmStoreWishlist');
+                    renderWishlist();
+                    Swal.fire(
+                        'Cleared!',
+                        'Your wishlist has been cleared.',
+                        'success'
+                    )
+                }
+            })
         });
     }
 
@@ -111,25 +181,35 @@ document.addEventListener('DOMContentLoaded', function () {
             let wishlist = JSON.parse(localStorage.getItem('kmStoreWishlist')) || [];
             if (wishlist.length === 0) return;
 
-            if (confirm('Move all items to cart?')) {
-                wishlist.forEach(item => {
-                    // Create cart compatible product object
-                    const product = {
-                        name: item.name,
-                        price: item.price,
-                        image: item.image,
-                        quantity: 1
-                    };
-                    addToCart(product, false); // Pass false to prevent redirect for each item
-                });
+            Swal.fire({
+                title: 'Move all to cart?',
+                text: "This will clear your wishlist and move items to cart.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, move them!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    wishlist.forEach(item => {
+                        // Create cart compatible product object
+                        const product = {
+                            name: item.name,
+                            price: item.price,
+                            image: item.image,
+                            quantity: 1
+                        };
+                        addToCart(product, false); // Pass false to prevent redirect for each item
+                    });
 
-                // Clear wishlist after moving
-                localStorage.removeItem('kmStoreWishlist');
-                renderWishlist();
+                    // Clear wishlist after moving
+                    localStorage.removeItem('kmStoreWishlist');
+                    renderWishlist();
 
-                // Redirect to cart once after all added
-                window.location.href = 'cart.html';
-            }
+                    // Redirect to cart once after all added
+                    window.location.href = 'cart.html';
+                }
+            })
         });
     }
 
@@ -178,7 +258,24 @@ document.addEventListener('DOMContentLoaded', function () {
             if (e.target.closest('.btn-remove-wishlist')) {
                 const btn = e.target.closest('.btn-remove-wishlist');
                 const name = btn.getAttribute('data-name');
-                removeFromWishlist(name);
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        removeFromWishlist(name);
+                        Swal.fire(
+                            'Deleted!',
+                            'Your item has been deleted.',
+                            'success'
+                        )
+                    }
+                })
             } else if (e.target.closest('.btn-add-cart-wishlist')) {
                 const btn = e.target.closest('.btn-add-cart-wishlist');
                 const name = btn.getAttribute('data-name');
@@ -256,10 +353,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 name: card.querySelector('.product-title').innerText,
                 price: parseFloat(card.querySelector('.product-price').innerText.replace('₹', '')),
                 image: card.querySelector('.card-img-top').src,
+                originalPrice: card.querySelector('.product-price-old') ? parseFloat(card.querySelector('.product-price-old').innerText.replace('₹', '')) : null,
                 quantity: 1
             };
 
-            addToCart(product);
+            addToCart(product, false);
+
+            // Visual Feedback
+            const originalText = btn.innerHTML; // Use innerHTML to preserve icons if we want, or just text? innerText is safer for text.
+            // Let's just change text for now as requested.
+            // If the button has an icon, we might lose it if we just set innerText. 
+            // The existing buttons have "Add to cart" text. Some might have icons.
+            // Looking at homepage.html: <button class="btn btn-add-cart">Add to cart</button> -> No icon inside text, but some might.
+            // Let's safe check.
+
+            btn.innerText = "Added";
+            // Optional: change color? The user didn't explicitly ask, but "Added" implies success.
+            // btn.classList.add('btn-success'); 
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                // btn.classList.remove('btn-success');
+            }, 2000);
         }
     });
 
@@ -280,9 +395,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     name: titleEl.innerText,
                     price: parseFloat(priceEl.innerText.replace('₹', '')),
                     image: imgEl.src,
+                    originalPrice: null, // Assuming single product page logic can be enhanced later if needed, or parse if available
                     quantity: quantityInput ? parseInt(quantityInput.value) : 1
                 };
-                addToCart(product);
+                addToCart(product, false);
+
+                // Visual Feedback
+                const originalText = singleProductBtn.innerText;
+                singleProductBtn.innerText = "Added";
+
+                setTimeout(() => {
+                    singleProductBtn.innerText = originalText;
+                }, 2000);
             }
         });
     }
@@ -326,8 +450,54 @@ document.addEventListener('DOMContentLoaded', function () {
                 const row = btn.closest('tr');
                 const name = row.getAttribute('data-product-name');
 
-                removeFromCart(name);
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        removeFromCart(name);
+                        Swal.fire(
+                            'Deleted!',
+                            'Item has been removed from cart.',
+                            'success'
+                        )
+                    }
+                })
             }
+        });
+    }
+
+    // Clear Cart Button Logic
+    const btnClearCart = document.getElementById('btn-clear-cart');
+    if (btnClearCart) {
+        btnClearCart.addEventListener('click', function () {
+            let cart = JSON.parse(localStorage.getItem('kmStoreCart')) || [];
+            if (cart.length === 0) return;
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, clear it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('kmStoreCart');
+                    renderCart();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your cart has been cleared.',
+                        'success'
+                    )
+                }
+            })
         });
     }
 
@@ -406,14 +576,45 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateCartTotal() {
         let cart = JSON.parse(localStorage.getItem('kmStoreCart')) || [];
         let totalSubtotal = 0;
+        let totalOriginalSubtotal = 0;
+        const deliveryCharge = 25;
+        const handlingCharge = 2;
 
         cart.forEach(item => {
             totalSubtotal += item.price * item.quantity;
+            if (item.originalPrice) {
+                totalOriginalSubtotal += item.originalPrice * item.quantity;
+            } else {
+                totalOriginalSubtotal += item.price * item.quantity;
+            }
         });
 
-        if (cartSubtotalEl) {
+        const savings = totalOriginalSubtotal - totalSubtotal;
+
+        // Elements
+        const billItemsTotalEl = document.getElementById('bill-items-total');
+        const billItemsTotalStrikeEl = document.getElementById('bill-items-total-strike');
+        const billSavingsBadgeEl = document.getElementById('bill-savings-badge');
+
+        if (billItemsTotalEl) {
+            billItemsTotalEl.textContent = '₹' + totalSubtotal;
+
+            if (savings > 0) {
+                if (billItemsTotalStrikeEl) billItemsTotalStrikeEl.textContent = '₹' + totalOriginalSubtotal;
+                if (billSavingsBadgeEl) {
+                    billSavingsBadgeEl.textContent = 'Saved ₹' + savings;
+                    billSavingsBadgeEl.style.display = 'inline-block';
+                }
+            } else {
+                if (billItemsTotalStrikeEl) billItemsTotalStrikeEl.textContent = '';
+                if (billSavingsBadgeEl) billSavingsBadgeEl.style.display = 'none';
+            }
+
+            if (cartTotalEl) cartTotalEl.textContent = '₹' + (totalSubtotal + deliveryCharge + handlingCharge);
+        } else if (cartSubtotalEl) {
+            // Fallback for checkout or other pages using old IDs if any (though we updated cart.html)
             cartSubtotalEl.textContent = '₹' + totalSubtotal;
-            cartTotalEl.textContent = '₹' + (totalSubtotal + shippingCost);
+            if (cartTotalEl) cartTotalEl.textContent = '₹' + (totalSubtotal + deliveryCharge + handlingCharge);
         }
     }
 
@@ -432,5 +633,245 @@ document.addEventListener('DOMContentLoaded', function () {
             const scrollAmount = hotDealsTrack.clientWidth / 2;
             hotDealsTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         });
+    }
+
+    // --- Address Book Logic ---
+    document.body.addEventListener('click', function (e) {
+        if (e.target.classList.contains('btn-delete-address')) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete this address?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const row = e.target.closest('tr');
+                    if (row) row.remove();
+                    Swal.fire(
+                        'Deleted!',
+                        'Address has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        }
+    });
+
+    // --- SweetAlert Confirmations ---
+
+    // 1. Wishlist: Clear All
+    // btnClearWishlist is already declared at the top
+    if (btnClearWishlist) {
+        btnClearWishlist.addEventListener('click', function () {
+            Swal.fire({
+                title: 'Clear Wishlist?',
+                text: "Are you sure you want to remove all items?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, clear it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const wishlistContainer = document.getElementById('wishlist-container');
+                    if (wishlistContainer) wishlistContainer.innerHTML = '<p class="text-center w-100">Your wishlist is empty.</p>';
+                    const countEl = document.getElementById('wishlist-count');
+                    if (countEl) countEl.innerText = 0;
+
+                    Swal.fire(
+                        'Cleared!',
+                        'Your wishlist has been cleared.',
+                        'success'
+                    );
+                }
+            });
+        });
+    }
+
+    // Cart and Checkout logic already exists above.
+
+    // 4. My Orders: Cancel Order
+    document.body.addEventListener('click', function (e) {
+        if (e.target.classList.contains('btn-cancel-order')) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Cancel Order?',
+                text: "Are you sure you want to cancel this order? This action cannot be undone.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, Cancel Order'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const row = e.target.closest('tr');
+                    const badge = row.querySelector('.badge');
+                    if (badge) {
+                        badge.className = 'badge bg-secondary';
+                        badge.innerText = 'Cancelled';
+                    }
+                    e.target.remove(); // Remove Cancel button
+
+                    Swal.fire(
+                        'Cancelled!',
+                        'Your order has been cancelled.',
+                        'success'
+                    );
+                }
+            });
+        }
+    });
+
+    // --- Order Details & Invoice Logic (My Orders Page) ---
+    const orderDetailsModalEl = document.getElementById('orderDetailsModal');
+    if (orderDetailsModalEl) {
+        const modal = new bootstrap.Modal(orderDetailsModalEl);
+        const modalOrderId = document.getElementById('modalOrderId');
+        const modalOrderDate = document.getElementById('modalOrderDate');
+        const modalOrderItems = document.getElementById('modalOrderItems');
+        const modalOrderTotal = document.getElementById('modalOrderTotal');
+        const btnDownloadInvoice = document.getElementById('btnDownloadInvoice');
+        let currentOrderData = null;
+
+        // View Details Click Handler
+        document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('view-order-btn')) {
+                const btn = e.target;
+                const row = btn.closest('tr');
+
+                // Parse Data
+                const orderId = row.getAttribute('data-order-id');
+                const date = row.getAttribute('data-date');
+                const status = row.getAttribute('data-status');
+                const total = row.getAttribute('data-total');
+                const items = JSON.parse(row.getAttribute('data-items'));
+
+                currentOrderData = { orderId, date, status, total, items };
+
+                // Populate Modal
+                modalOrderId.textContent = orderId;
+                modalOrderDate.textContent = date;
+                modalOrderTotal.textContent = total;
+
+                // Populate Items
+                modalOrderItems.innerHTML = '';
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center', 'px-0');
+                    li.innerHTML = `
+                        <div>
+                            <h6 class="mb-0 text-dark">${item.name}</h6>
+                            <small class="text-muted">Qty: ${item.qty}</small>
+                        </div>
+                        <span class="text-muted small">${item.price}</span>
+                    `;
+                    modalOrderItems.appendChild(li);
+                });
+
+                // Show/Hide Download Button
+                if (status === 'Delivered') {
+                    btnDownloadInvoice.style.display = 'inline-block';
+                } else {
+                    btnDownloadInvoice.style.display = 'none';
+                }
+
+                modal.show();
+            }
+        });
+
+        // Download Invoice Click Handler
+        if (btnDownloadInvoice) {
+            btnDownloadInvoice.addEventListener('click', function () {
+                if (!currentOrderData) return;
+                generateInvoice(currentOrderData);
+            });
+        }
+    }
+
+    function generateInvoice(order) {
+        const invoiceHTML = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>Invoice ${order.orderId}</title>
+                <style>
+                    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 40px; color: #333; }
+                    .invoice-box { max-width: 800px; margin: auto; border: 1px solid #eee; padding: 30px; }
+                    .header { display: flex; justify-content: space-between; margin-bottom: 40px; }
+                    .header img { max-width: 150px; }
+                    .invoice-title { font-size: 24px; font-weight: bold; color: #0d6efd; }
+                    .invoice-details { text-align: right; }
+                    .table-responsive { margin-top: 30px; }
+                    table { width: 100%; border-collapse: collapse; }
+                    th { text-align: left; background-color: #f8f9fa; padding: 12px; border-bottom: 2px solid #dee2e6; }
+                    td { padding: 12px; border-bottom: 1px solid #eee; }
+                    .total-row td { font-weight: bold; font-size: 18px; border-top: 2px solid #333; }
+                    .footer { margin-top: 50px; text-align: center; font-size: 12px; color: #aaa; }
+                    @media print {
+                        body { padding: 0; }
+                        .invoice-box { border: none; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="invoice-box">
+                    <div class="header">
+                        <div>
+                            <div class="invoice-title">KM Store</div>
+                            <p>123 Grocery Lane<br>Fresh Town, KA 560000</p>
+                        </div>
+                        <div class="invoice-details">
+                            <h2 style="color: #333;">INVOICE</h2>
+                            <p><strong>Order ID:</strong> ${order.orderId}<br>
+                            <strong>Date:</strong> ${order.date}<br>
+                            <strong>Status:</strong> ${order.status}</p>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th style="text-align: right;">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${order.items.map(item => `
+                                <tr>
+                                    <td>${item.name}</td>
+                                    <td>${item.qty}</td>
+                                    <td style="text-align: right;">${item.price}</td>
+                                </tr>
+                            `).join('')}
+                            <tr class="total-row">
+                                <td colspan="2" style="text-align: right;">Total</td>
+                                <td style="text-align: right;">${order.total}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                    <div class="footer">
+                        <p>Thank you for shopping with KM Store!</p>
+                        <p>For support, email support@kmstore.com</p>
+                    </div>
+                </div>
+                <script>
+                    window.onload = function() { window.print(); }
+                <\/script>
+            </body>
+            </html>
+        `;
+
+        const printWindow = window.open('', '', 'height=600,width=800');
+        printWindow.document.write(invoiceHTML);
+        printWindow.document.close();
     }
 });

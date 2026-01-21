@@ -14,6 +14,10 @@
         rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -39,6 +43,9 @@
         </a>
         <a href="banner.html" class="nav-link">
             <i class="fas fa-image"></i> Banner
+        </a>
+        <a href="sales-offers.html" class="nav-link">
+            <i class="fas fa-percentage"></i> Sales Offers
         </a>
         <a href="transaction.html" class="nav-link">
             <i class="fas fa-wallet"></i> Transaction
@@ -138,10 +145,9 @@
                                 <td>$120.00</td>
                                 <td><span class="badge bg-success bg-opacity-10 text-success">Completed</span></td>
                                 <td>
-                                    <button class="btn btn-sm btn-light text-primary view-order-btn"
-                                        data-bs-toggle="modal" data-bs-target="#orderDetailsModal"><i
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
                                             class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger"><i
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -153,10 +159,9 @@
                                 <td>$45.50</td>
                                 <td><span class="badge bg-warning bg-opacity-10 text-warning">Pending</span></td>
                                 <td>
-                                    <button class="btn btn-sm btn-light text-primary view-order-btn"
-                                        data-bs-toggle="modal" data-bs-target="#orderDetailsModal"><i
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
                                             class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger"><i
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -168,10 +173,107 @@
                                 <td>$15.00</td>
                                 <td><span class="badge bg-danger bg-opacity-10 text-danger">Cancelled</span></td>
                                 <td>
-                                    <button class="btn btn-sm btn-light text-primary view-order-btn"
-                                        data-bs-toggle="modal" data-bs-target="#orderDetailsModal"><i
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
                                             class="fas fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-light text-danger"><i
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-004</td>
+                                <td>18 Jan, 2026</td>
+                                <td>Emily Davis</td>
+                                <td>Toronto, Canada</td>
+                                <td>$210.75</td>
+                                <td><span class="badge bg-success bg-opacity-10 text-success">Completed</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-005</td>
+                                <td>18 Jan, 2026</td>
+                                <td>Michael Brown</td>
+                                <td>Berlin, Germany</td>
+                                <td>$85.00</td>
+                                <td><span class="badge bg-warning bg-opacity-10 text-warning">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-006</td>
+                                <td>17 Jan, 2026</td>
+                                <td>Jessica Wilson</td>
+                                <td>Paris, France</td>
+                                <td>$320.40</td>
+                                <td><span class="badge bg-success bg-opacity-10 text-success">Completed</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-007</td>
+                                <td>17 Jan, 2026</td>
+                                <td>David Martinez</td>
+                                <td>Madrid, Spain</td>
+                                <td>$65.20</td>
+                                <td><span class="badge bg-danger bg-opacity-10 text-danger">Cancelled</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-008</td>
+                                <td>16 Jan, 2026</td>
+                                <td>Sophia Taylor</td>
+                                <td>Rome, Italy</td>
+                                <td>$150.00</td>
+                                <td><span class="badge bg-success bg-opacity-10 text-success">Completed</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-009</td>
+                                <td>15 Jan, 2026</td>
+                                <td>James Anderson</td>
+                                <td>Sydney, Australia</td>
+                                <td>$95.50</td>
+                                <td><span class="badge bg-warning bg-opacity-10 text-warning">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-010</td>
+                                <td>14 Jan, 2026</td>
+                                <td>Olivia Thomas</td>
+                                <td>Tokyo, Japan</td>
+                                <td>$215.00</td>
+                                <td><span class="badge bg-success bg-opacity-10 text-success">Completed</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light text-primary view-order-btn" title="View"><i
+                                            class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-light text-danger" title="Delete"><i
                                             class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -258,6 +360,35 @@
                 sidebar.classList.toggle('show');
             });
         }
+
+        // Global Delete Confirmation
+        document.body.addEventListener('click', function (e) {
+            const deleteBtn = e.target.closest('.btn.text-danger');
+            if (deleteBtn) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            'Deleted!',
+                            'The item has been deleted.',
+                            'success'
+                        ).then(() => {
+                            // Optional: Remove row from DOM
+                            const row = deleteBtn.closest('tr');
+                            if (row) row.remove();
+                        });
+                    }
+                });
+            }
+        });
     </script>
 </body>
 
